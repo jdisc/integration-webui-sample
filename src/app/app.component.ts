@@ -47,6 +47,6 @@ export class AppComponent {
   }
 
   showJDiscUI() {
-    void this.router.navigate(["jdisc-integration"], {state: {server: this.server, username: this.username, password: this.password}});
+    void this.router.navigate(["jdisc"], {state: {server: this.server, username: this.username, password: this.password}, skipLocationChange: true});
   }
 }
