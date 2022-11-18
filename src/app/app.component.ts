@@ -28,5 +28,5 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'integration-jdisc-ui';
+  title = 'Sample of application with Integration for JDisc Web UI';
 }
