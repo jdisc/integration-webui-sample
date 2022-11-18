@@ -13,9 +13,14 @@ import {Router} from "@angular/router";
     <h2>With the following fields you can start JDisc UI integration: </h2>
     <fieldset title="Fields to access JDisc UI" class="field-container">
       <div>
-        <label for="server">Server URL</label>
+        <label for="server">Server UI URL for Iframe</label>
         <input id="server" name="server" type="text" style="width: 100%" [(ngModel)]="server" placeholder="JDisc URL to view"/>
         <span>Example of the URL: https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false</span>
+      </div>
+      <div>
+        <label for="apiserver">Server API URL for Login</label>
+        <input id="apiserver" name="apiserver" type="text" style="width: 100%" [(ngModel)]="apiserver" placeholder="JDisc API URL"/>
+        <span>Example of the URL: https://192.168.185.23/graphql</span>
       </div>
       <div>
         <label for="username">Username</label>
@@ -40,6 +45,7 @@ export class AppComponent {
   title = 'Sample of application with Integration for JDisc Web UI';
 
   server: string = "https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false";
+  apiserver: string = "https://192.168.185.23/graphql";
   username: string = "administrator";
   password: string = "";
 
@@ -47,6 +53,6 @@ export class AppComponent {
   }
 
   showJDiscUI() {
-    void this.router.navigate(["jdisc"], {replaceUrl: false, state: {server: this.server, username: this.username, password: this.password}, skipLocationChange: true});
+    void this.router.navigate(["jdisc"], {replaceUrl: false, state: {api: this.apiserver, server: this.server, username: this.username, password: this.password}, skipLocationChange: true});
   }
 }
