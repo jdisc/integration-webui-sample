@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'ext-root',
@@ -8,25 +9,44 @@ import { Component } from '@angular/core';
       <h1>
         Welcome to {{title}}!
       </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
     </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
+    <h2>With the following fields you can start JDisc UI integration: </h2>
+    <fieldset title="Fields to access JDisc UI" class="field-container">
+      <div>
+        <label for="server">Server URL</label>
+        <input id="server" name="server" type="text" style="width: 100%" [(ngModel)]="server" placeholder="JDisc URL to view"/>
+        <span>Example of the URL: https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false</span>
+      </div>
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" [(ngModel)]="username" placeholder="JDisc user's login'"/>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" [(ngModel)]="password" placeholder="JDisc user's password"/>
+      </div>
+      <div>
+        <button id="submit" type="button" (click)="showJDiscUI()">Show JDisc UI</button>
+      </div>
+    </fieldset>
+    {{ server }} - {{ username }} - Password will not be shown
     <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [
+    'fieldset { display: flex; flex-direction: column; }', 'div { display: flex; flex: auto; flex-direction: row; margin-bottom: 2rem }'
+  ]
 })
 export class AppComponent {
   title = 'Sample of application with Integration for JDisc Web UI';
+
+  server: string = "https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false";
+  username: string = "administrator";
+  password: string = "";
+
+  constructor(private router: Router) {
+  }
+
+  showJDiscUI() {
+    void this.router.navigate(["jdisc-integration"], {state: {server: this.server, username: this.username, password: this.password}});
+  }
 }
