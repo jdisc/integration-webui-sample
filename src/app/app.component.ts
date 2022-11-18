@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from "@angular/router";
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ext-root',
@@ -47,6 +47,6 @@ export class AppComponent {
   }
 
   showJDiscUI() {
-    void this.router.navigate(["jdisc"], {state: {server: this.server, username: this.username, password: this.password}, skipLocationChange: true});
+    void this.router.navigate(["jdisc"], {replaceUrl: false, state: {server: this.server, username: this.username, password: this.password}, skipLocationChange: true});
   }
 }
