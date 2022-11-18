@@ -94,7 +94,8 @@
               "browserTarget": "integration-jdisc-ui:build:production"
             },
             "development": {
-              "browserTarget": "integration-jdisc-ui:build:development"
+              "browserTarget": "integration-jdisc-ui:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

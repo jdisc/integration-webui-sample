@@ -19,9 +19,7 @@ export type LoginResult = {
       <li>Login</li>
       <li>Load URL into &gt;iframe&lt;</li>
 
-      <ng-container *ngIf="token">
-        <iframe #jdiscIframe></iframe>
-      </ng-container>
+      <iframe #jdiscIframe style="width: 100%; height: 1024px;"></iframe>
     </ul>
   `,
   styles: []
