@@ -49,7 +49,7 @@ export class AppComponent {
   // username: string = "administrator";
   password: string = "";
 
-  server: string = "https://localhost:4200/reports/device-details/general-info/device-info?deviceId=96&showTopNav=false";
+  server: string = "https://localhost/reports/device-details/general-info/device-info?deviceId=96&showTopNav=false";
   apiserver: string = "/graphql";
   username: string = "gennadiyt";
 

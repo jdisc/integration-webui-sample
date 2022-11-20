@@ -1,6 +1,6 @@
 {
   "/graphql": {
-    "target": "https://192.168.185.23",
+    "target": "https://127.0.0.1",
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"
