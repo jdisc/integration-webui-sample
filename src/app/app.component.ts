@@ -44,14 +44,14 @@ import {Router} from "@angular/router";
 export class AppComponent {
   title = 'Sample of application with Integration for JDisc Web UI';
 
-  server: string = "https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false";
-  apiserver: string = "/graphql";
-  username: string = "administrator";
+  // server: string = "https://192.168.185.23/reports/device-details/general-info/device-info?deviceId=49330&showTopNav=false";
+  // apiserver: string = "/graphql";
+  // username: string = "administrator";
   password: string = "";
 
-  // server: string = "https://localhost/reports/device-details/general-info/device-info?deviceId=96&showTopNav=false";
-  // apiserver: string = "/graphql";
-  // username: string = "gennadiyt";
+  server: string = "https://localhost:4200/reports/device-details/general-info/device-info?deviceId=96&showTopNav=false";
+  apiserver: string = "/graphql";
+  username: string = "gennadiyt";
 
   constructor(private router: Router) {
   }

@@ -40,7 +40,9 @@ export class JdiscIntegrationComponent implements AfterViewInit {
       }),
       switchMap((data) => this.login(data['api'], data['username'], data['password']).pipe(tap((loginResult) => {
         if (loginResult.status == "SUCCESS") {
-          this.showJDiscUIInIframe(loginResult.accessToken!, this.iframeRef, data["server"]);
+          this.showJDiscUIInIframe(loginResult.accessToken!, loginResult.refreshToken!, this.iframeRef, data["server"]);
+        } else {
+          window.alert(loginResult.status)
         }
       }))))
       .subscribe();
@@ -61,9 +63,9 @@ export class JdiscIntegrationComponent implements AfterViewInit {
       }));
   }
 
-  private showJDiscUIInIframe(accessToken: string, iframeRef: ElementRef<HTMLIFrameElement>, server: string) {
-    localStorage.setItem('accessToken', accessToken);
+  private showJDiscUIInIframe(accessToken: string, refreshToken: string, iframeRef: ElementRef<HTMLIFrameElement>, server: string) {
     iframeRef.nativeElement.src = server;
+    iframeRef.nativeElement.contentWindow?.postMessage({accessToken, refreshToken}, '*');
     this.token = accessToken
   }
 }
