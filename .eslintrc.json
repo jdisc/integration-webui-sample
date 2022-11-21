@@ -1,8 +1,8 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "rules": {
+    "no-console": "warn"
+  },
   "overrides": [
     {
       "files": [
@@ -10,15 +10,28 @@
       ],
       "parserOptions": {
         "project": [
-          "tsconfig.json"
+          "tsconfig.json",
+          "e2e/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
       ],
       "rules": {
+        "@angular-eslint/component-selector": [
+          "warn",
+          {
+            "type": "element",
+            "prefix": ["j", "app"],
+            "style": "kebab-case"
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -27,12 +40,11 @@
             "style": "camelCase"
           }
         ],
-        "@angular-eslint/component-selector": [
-          "error",
+        "prettier/prettier": [
+          "warn",
           {
-            "type": "element",
-            "prefix": "ext",
-            "style": "kebab-case"
+            "endOfLine": "crlf",
+            "printWidth": 120
           }
         ]
       }
@@ -42,9 +54,18 @@
         "*.html"
       ],
       "extends": [
-        "plugin:@angular-eslint/template/recommended"
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:prettier/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "prettier/prettier": [
+          "warn",
+          {
+            "printWidth": 120
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "plugins": ["only-warn"]
 }

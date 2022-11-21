@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { catchError, map, NEVER, Observable, switchMap, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { catchError, map, NEVER, Observable, Subject, switchMap, take, tap } from "rxjs";
 
 export type LoginResult = {
   accessToken?: string;
@@ -28,6 +28,7 @@ export class JdiscIntegrationComponent implements AfterViewInit {
   timestamp = new Date();
   token?: string;
   @ViewChild('jdiscIframe', {static: false}) iframeRef!: ElementRef<HTMLIFrameElement>;
+  private embeddedJDiscReady: Subject<boolean> = new Subject<boolean>();
 
   constructor(readonly route: ActivatedRoute, readonly router: Router, private http: HttpClient) {
 
@@ -63,9 +64,18 @@ export class JdiscIntegrationComponent implements AfterViewInit {
       }));
   }
 
+  @HostListener('window:message', ['$event'])
+  provideAuthentication($event: any) {
+    if ($event.data?.versionInfo?.productName === "JDisc Discovery" && $event.data?.status == "started") {
+      this.embeddedJDiscReady.next(true);
+    }
+  }
+
   private showJDiscUIInIframe(accessToken: string, refreshToken: string, iframeRef: ElementRef<HTMLIFrameElement>, server: string) {
+    this.embeddedJDiscReady.pipe(take(1), tap(() => {
+      iframeRef.nativeElement.contentWindow?.postMessage({accessToken, refreshToken}, '*');
+      this.token = accessToken
+    })).subscribe();
     iframeRef.nativeElement.src = server;
-    iframeRef.nativeElement.contentWindow?.postMessage({accessToken, refreshToken}, '*');
-    this.token = accessToken
   }
 }
