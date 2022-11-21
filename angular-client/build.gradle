@@ -1,31 +1,18 @@
 plugins {
-  id "base"
+  id "java"
   id "com.github.node-gradle.node" version "${nodePluginVersion}"
 }
 
-configurations {
-  production
-}
+group = 'com.jdisc'
+version = '0.0.1-SNAPSHOT'
 
-task deployForDev (type: Copy) {
-  dependsOn ("npm_run_build")
-  from ("dist/${project.name}")
-  into "${project.buildDir}/META-INF/resources/"
-}
-
-task archiveForProd (type: Jar) {
-  from ("dist/${project.name}") {
-    into "META-INF/resources/"
+processResources {
+  from("dist/${project.name}") {
+    into("META-INF/resources")
   }
 }
 
-artifacts {
-  archives archiveForProd
-}
-
-npm_run_build.finalizedBy deployForDev
-npm_run_build.finalizedBy archiveForProd
-build.dependsOn npm_run_build
+processResources.dependsOn npm_run_build
 
 clean {
   delete += "dist"
