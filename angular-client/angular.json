@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "integration-jdisc-ui": {
+    "angular-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -40,7 +40,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/integration-jdisc-ui",
+            "outputPath": "dist/angular-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -91,10 +91,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "integration-jdisc-ui:build:production"
+              "browserTarget": "angular-client:build:production"
             },
             "development": {
-              "browserTarget": "integration-jdisc-ui:build:development",
+              "browserTarget": "angular-client:build:development",
               "proxyConfig": "proxy.conf.json"
             }
           },
@@ -103,7 +103,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "integration-jdisc-ui:build"
+            "browserTarget": "angular-client:build"
           }
         },
         "test": {
