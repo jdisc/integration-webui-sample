@@ -87,7 +87,7 @@ export class JdiscIntegrationComponent implements AfterViewInit {
 
   @HostListener('window:message', ['$event'])
   provideAuthentication($event: any) {
-    if ($event.data?.versionInfo?.productName === 'JDisc Discovery' && $event.data?.status == 'started') {
+    if ($event.data?.product?.productName === 'JDisc Discovery' && $event.data?.status == 'started') {
       this.embeddedJDiscReady.next(true);
     }
   }
