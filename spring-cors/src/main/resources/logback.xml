@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10000" debug="false">
+    <appender name="JDISC" class="ch.qos.logback.core.FileAppender">
+        <File>logs/jdisc.trace.log</File>
+        <append>false</append>
+        <encoder>
+            <pattern>%d [%-5p] [%t] %c - %message%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %5p [%t] %c \(%F:%L\) - %message%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+    <appender name="stderr" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %5p [%t] %c \(%F:%L\) - %message%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+    </appender>
+    <logger name="com.jdisc" level="TRACE"/>
+    <!--logger name="org.springframework.web.filter" level="TRACE"/>
+    <logger name="org.springframework.remoting.support.RemotingSupport" level="TRACE"/-->
+    <logger name="org.springframework" level="TRACE"/>
+    <logger name="org.apache.coyote" level="INFO"/>
+    <logger name="org.apache.catalina" level="INFO"/>
+    <logger name="org.apache.tomcat.util.net.NioEndpoint" level="INFO"/>
+    <root level="TRACE">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="stderr"/>
+        <appender-ref ref="JDISC"/>
+    </root>
+</configuration>
