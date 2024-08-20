@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, NEVER, Observable, Subject, switchMap, take, tap } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 export type LoginResult = {
   accessToken?: string;
@@ -25,13 +26,22 @@ export type LoginResult = {
 export class JdiscIntegrationComponent implements AfterViewInit {
   timestamp = new Date();
   token?: string;
+
   get origin(): string {
     return window.origin;
   }
+
   @ViewChild('jdiscIframe', { static: false }) iframeRef!: ElementRef<HTMLIFrameElement>;
   private embeddedJDiscReady: Subject<boolean> = new Subject<boolean>();
 
-  constructor(readonly route: ActivatedRoute, readonly router: Router, private http: HttpClient) {}
+  constructor(
+    readonly route: ActivatedRoute,
+    readonly router: Router,
+    private http: HttpClient,
+    private appComponent: AppComponent
+  ) {
+    this.appComponent.integration = this;
+  }
 
   ngAfterViewInit(): void {
     this.route.data
@@ -110,5 +120,15 @@ export class JdiscIntegrationComponent implements AfterViewInit {
       )
       .subscribe();
     iframeRef.nativeElement.src = server + '&origin=' + window.origin;
+  }
+
+  refresh() {
+    this.iframeRef.nativeElement.contentWindow?.location.reload();
+  }
+
+  redirect(redirect: string) {
+    const serverLocation = redirect.indexOf('/', 'https://'.length + 1);
+    const origin = redirect.substring(0, serverLocation);
+    this.iframeRef.nativeElement.contentWindow?.postMessage({ redirect: redirect.substring(origin.length) }, origin);
   }
 }
