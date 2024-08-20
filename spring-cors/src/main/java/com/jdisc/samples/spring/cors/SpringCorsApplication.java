@@ -16,8 +16,7 @@ public class SpringCorsApplication {
       @Override
       public void addCorsMappings (CorsRegistry registry) {
         registry.addMapping ("/**")
-//                .allowCredentials (true)
-                .allowedOrigins (CorsConfiguration.ALL)
+                .allowCredentials (true)
                 .allowedOriginPatterns (CorsConfiguration.ALL)
                 .allowedHeaders (CorsConfiguration.ALL)
                 .allowedMethods (CorsConfiguration.ALL);
