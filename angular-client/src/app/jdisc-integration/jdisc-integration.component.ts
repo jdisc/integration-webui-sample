@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, NEVER, Observable, Subject, switchMap, take, tap } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { ToastrService } from 'ngx-toastr';
 
 export type LoginResult = {
   accessToken?: string;
@@ -18,6 +19,8 @@ export type LoginResult = {
       <li>Login</li>
       <li>Load URL into &gt;iframe&lt;</li>
 
+      <button (click)="show()">Show notification</button>
+
       <iframe #jdiscIframe style="width: 100%; height: 1024px;"></iframe>
     </ul>
   `,
@@ -31,14 +34,16 @@ export class JdiscIntegrationComponent implements AfterViewInit {
     return window.origin;
   }
 
-  @ViewChild('jdiscIframe', { static: false }) iframeRef!: ElementRef<HTMLIFrameElement>;
+  @ViewChild('jdiscIframe', { static: false })
+  iframeRef!: ElementRef<HTMLIFrameElement>;
   private embeddedJDiscReady: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     readonly route: ActivatedRoute,
     readonly router: Router,
     private http: HttpClient,
-    private appComponent: AppComponent
+    private appComponent: AppComponent,
+    private toastr: ToastrService
   ) {
     this.appComponent.integration = this;
   }
@@ -97,6 +102,7 @@ export class JdiscIntegrationComponent implements AfterViewInit {
 
   @HostListener('window:message', ['$event'])
   provideAuthentication($event: any) {
+    this.toastr.info($event.data?.status, $event.data?.product?.productName);
     if ($event.data?.product?.productName === 'JDisc Discovery' && $event.data?.status == 'started') {
       this.embeddedJDiscReady.next(true);
     }
@@ -130,5 +136,11 @@ export class JdiscIntegrationComponent implements AfterViewInit {
     const serverLocation = redirect.indexOf('/', 'https://'.length + 1);
     const origin = redirect.substring(0, serverLocation);
     this.iframeRef.nativeElement.contentWindow?.postMessage({ redirect: redirect.substring(origin.length) }, origin);
+  }
+
+  show() {
+    this.toastr.info("Toaster", "Integration", {
+      disableTimeOut: true,
+    });
   }
 }
