@@ -28,7 +28,10 @@
           "warn",
           {
             "type": "element",
-            "prefix": ["j", "app"],
+            "prefix": [
+              "j",
+              "app"
+            ],
             "style": "kebab-case"
           }
         ],
@@ -67,5 +70,7 @@
       }
     }
   ],
-  "plugins": ["only-warn"]
+  "plugins": [
+    "only-warn"
+  ]
 }
