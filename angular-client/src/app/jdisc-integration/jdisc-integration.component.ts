@@ -102,7 +102,7 @@ export class JdiscIntegrationComponent implements AfterViewInit {
 
   @HostListener('window:message', ['$event'])
   provideAuthentication($event: any) {
-    this.toastr.info($event.data?.status, $event.data?.product?.productName);
+    this.toastr.info($event.data?.status + ': ' + JSON.stringify($event.data), $event.data?.product?.productName);
     if ($event.data?.product?.productName === 'JDisc Discovery' && $event.data?.status == 'started') {
       this.embeddedJDiscReady.next(true);
     }
@@ -139,7 +139,7 @@ export class JdiscIntegrationComponent implements AfterViewInit {
   }
 
   show() {
-    this.toastr.info("Toaster", "Integration", {
+    this.toastr.info('Toaster', 'Integration', {
       disableTimeOut: true,
     });
   }
