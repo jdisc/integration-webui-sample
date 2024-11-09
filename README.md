@@ -38,3 +38,5 @@ Workflow consists of the following steps:
 2. Build URLs for accessing reports. You may copy URL from Web UI and adjust embedding parameters.
 3. Add iframe to your HTML markup and load URLs.
 4. Log out via GraphQL API once closing the embedded view.
+
+![illustration UI with embedded Web UI](images/04dca8cfa121.png "This is illustration UI with embedded Web UI")
