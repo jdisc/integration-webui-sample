@@ -75,10 +75,11 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
     <router-outlet></router-outlet>
   `,
   styles: [
-    '.field-container { display: flex; flex-direction: column; background-color: #f4f4f4; flex-wrap: wrap; gap: 1rem; }',
-    '.row { display: flex; flex-direction: row; flex: auto; margin-bottom: 1rem; flex-wrap: nowrap; }',
-    '.column { flex: 0 1 calc(33.333% - 16px); box-sizing: border-box;  }',
-    '@media (max-width: 768px) { .row { flex-wrap: wrap; } .column { flex: 1 0 100%; } }',
+    '.field-container { display: flex; flex-direction: column; gap: 1rem; background-color: #f4f4f4; }',
+    '.row { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }',
+    '.column { flex: 0 1 auto; box-sizing: border-box;  }',
+    '@media (max-width: 768px) { .row { grid-template-columns: repeat(2, 1fr); } }',
+    '@media (max-width: 480px) { .row { grid-template-columns: repeat(1, 1fr); } }',
   ],
 })
 export class AppComponent {
