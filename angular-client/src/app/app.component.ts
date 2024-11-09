@@ -6,7 +6,7 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
   selector: 'ext-root',
   template: `
     <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
+    <div style="text-align:center" class="content" xmlns="http://www.w3.org/1999/html">
       <h1>Welcome to {{ title }}!</h1>
     </div>
     <h2>With the following fields you can start JDisc UI integration:</h2>
@@ -22,6 +22,38 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
           placeholder="JDisc URL to view"
         />
         <span class="column">Example of the URL: /reports/device-details/general-info/device-info?deviceId=49330</span>
+      </div>
+      <div class="row">
+        <label for="embedded" class="column">embed</label>
+        <input
+          id="embedded"
+          name="embedded"
+          type="checkbox"
+          class="column"
+          [(ngModel)]="embed"
+          [indeterminate]="embed !== 'true' && embed !== 'false'"
+          [checked]="embed === 'true'"
+          placeholder="Embedded mode"
+        />
+        <input
+          id="partnerId"
+          name="partnerId"
+          type="text"
+          class="column"
+          [(ngModel)]="embed"
+          placeholder="Partner ID"
+        />
+      </div>
+      <div class="row">
+        <label for="showLeftNav" class="column">showLeftNav</label>
+        <input
+          id="showLeftNav"
+          name="showLeftNav"
+          type="checkbox"
+          class="column"
+          [(ngModel)]="showLeftNav"
+          placeholder="Show left navigation"
+        />
       </div>
       <div class="row">
         <label class="column" for="showTopNav">showTopNav</label>
@@ -78,6 +110,7 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
     '.field-container { display: flex; flex-direction: column; gap: 1rem; background-color: #f4f4f4; }',
     '.row { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }',
     '.column { flex: 0 1 auto; box-sizing: border-box;  }',
+    '.column[type="checkbox"] { width: 100%; text-align: left; align-items: flex-start; }',
     '@media (max-width: 768px) { .row { grid-template-columns: repeat(2, 1fr); } }',
     '@media (max-width: 480px) { .row { grid-template-columns: repeat(1, 1fr); } }',
   ],
@@ -93,7 +126,7 @@ export class AppComponent {
   apiserver = 'https://localhost/graphql';
   // URL inside JDisc Web UI.
   serverUrl = '/reports/device-details/general-info/device-info?deviceId=96';
-  username = 'gennadiyt';
+  username = 'JDiscTest';
 
   constructor(private router: Router) {}
 
@@ -111,13 +144,21 @@ export class AppComponent {
   }
 
   integration!: JdiscIntegrationComponent;
+  embed: string = 'true';
+  showLeftNav = false;
+  showBreadcrumbs = false;
   showTopNav: 'always' | 'smart' | 'never' = 'smart';
   shopTopNavOptions = ['always', 'smart', 'never'];
 
   get embedUrl(): string {
     const queryParams = {
+      showLeftNav: this.showLeftNav,
       showTopNav: this.showTopNav,
+      showBreadcrumbs: this.showBreadcrumbs,
     };
+    if (this.embed) {
+      Object.assign(queryParams, { embed: this.embed });
+    }
 
     const urlTree = this.router.parseUrl(this.serverUrl);
     urlTree.queryParams = { ...urlTree.queryParams, ...queryParams };
