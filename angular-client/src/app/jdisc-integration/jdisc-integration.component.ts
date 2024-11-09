@@ -21,7 +21,7 @@ export type LoginResult = {
 
       <button (click)="show()">Show notification</button>
 
-      <iframe #jdiscIframe style="width: 100%; height: 1024px;"></iframe>
+      <iframe #jdiscIframe style="width: calc(100% - 16px); height: 1024px;"></iframe>
     </ul>
   `,
   styles: [],
