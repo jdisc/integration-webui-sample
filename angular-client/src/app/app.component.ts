@@ -12,7 +12,41 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
     <h2>With the following fields you can start JDisc UI integration:</h2>
     <fieldset title="Fields to access JDisc UI" class="field-container">
       <div class="row">
-        <label for="server" class="column">Server UI URL for Iframe</label>
+        <label class="column" for="apiserver">Server API URL for Login</label>
+        <input
+          id="apiserver"
+          name="apiserver"
+          type="text"
+          class="column"
+          [(ngModel)]="apiserver"
+          placeholder="JDisc API URL"
+        />
+        <span class="column">Example of the URL: https://192.168.185.23/graphql</span>
+      </div>
+      <div class="row">
+        <label class="column" for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          class="column"
+          [(ngModel)]="username"
+          placeholder="JDisc user's login'"
+        />
+      </div>
+      <div class="row">
+        <label class="column" for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="column"
+          [(ngModel)]="password"
+          placeholder="JDisc user's password"
+        />
+      </div>
+      <div class="row">
+        <label for="server" class="column">Web UI URI</label>
         <input
           id="server"
           name="server"
@@ -21,7 +55,7 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
           [(ngModel)]="serverUrl"
           placeholder="JDisc URL to view"
         />
-        <span class="column">Example of the URL: /reports/device-details/general-info/device-info?deviceId=49330</span>
+        <span class="column">Example of the URI: /reports/device-details/general-info/device-info?deviceId=49330</span>
       </div>
       <div class="row">
         <label for="embedded" class="column">embed</label>
@@ -62,40 +96,6 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
             {{ showTopNavOption }}
           </option>
         </select>
-      </div>
-      <div class="row">
-        <label class="column" for="apiserver">Server API URL for Login</label>
-        <input
-          id="apiserver"
-          name="apiserver"
-          type="text"
-          class="column"
-          [(ngModel)]="apiserver"
-          placeholder="JDisc API URL"
-        />
-        <span class="column">Example of the URL: https://192.168.185.23/graphql</span>
-      </div>
-      <div class="row">
-        <label class="column" for="username">Username</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          class="column"
-          [(ngModel)]="username"
-          placeholder="JDisc user's login'"
-        />
-      </div>
-      <div class="row">
-        <label class="column" for="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          class="column"
-          [(ngModel)]="password"
-          placeholder="JDisc user's password"
-        />
       </div>
       <div class="row">
         <button class="column" id="submit" type="button" (click)="showJDiscUI()">Show JDisc UI</button>
