@@ -35,7 +35,13 @@ Using the same user for Web UI access and integration is technically possible bu
 Workflow consists of the following steps:
 
 1. Login via GraphQL API.
-2. Build URLs for accessing reports. You may copy URL from Web UI and adjust embedding parameters.
+2. Build URLs for accessing reports. You may copy URL from Web UI and adjust embedding parameters:
+```
+embed=true|<any vendor id>
+showLeftNav=true|false
+showTopNav=always|smart|never
+showBreadcrumbs=true|false
+```
 3. Add iframe to your HTML markup and load URLs.
 4. Log out via GraphQL API once closing the embedded view.
 
