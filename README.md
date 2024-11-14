@@ -45,4 +45,17 @@ showBreadcrumbs=true|false
 3. Add iframe to your HTML markup and load URLs.
 4. Log out via GraphQL API once closing the embedded view.
 
+#### Parameters description
+
+`embed` if set to any value a special layer for reporting presentation will be used. 
+The embedding report layer has no main menu, but has left navigation menu for device details unless `showLeftNav` is specified on URL.
+
+`showLeftNav` indicates if left navigation should be displayed. This parameter overrides default behavior of left navigation menu when running with `embed`. 
+Additionally, `showLeftNav` specifies visibility of left navigation menu when running without `embed`.  
+
+`showTopNav` indicates how top navigation menu should be displayed. If `always` the navigation menu on top of the page is displayed (default behavior if run without `embed`),
+if `smart` then navigation menu appears under device details only (default behavior if run with `embed`), and if `never` then top navigation does not appear.
+
+`showBreadcrumbs` is used to hide breadcrumbs when running without `embed` and `showTopNav` is set to `always`
+
 ![illustration UI with embedded Web UI](images/04dca8cfa121.png "This is illustration UI with embedded Web UI")
