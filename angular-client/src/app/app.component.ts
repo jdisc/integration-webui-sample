@@ -86,6 +86,8 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
           type="checkbox"
           class="column"
           [(ngModel)]="showLeftNav"
+          [indeterminate]="showLeftNav !== 'true' && showLeftNav !== 'false'"
+          [checked]="showLeftNav === 'true'"
           placeholder="Show left navigation"
         />
       </div>
@@ -96,6 +98,17 @@ import { JdiscIntegrationComponent } from './jdisc-integration/jdisc-integration
             {{ showTopNavOption }}
           </option>
         </select>
+      </div>
+      <div class="row">
+        <label for="showBreadcrumbs" class="column">showBreadcrumbs</label>
+        <input
+          id="showBreadcrumbs"
+          name="showBreadcrumbs"
+          type="checkbox"
+          class="column"
+          [(ngModel)]="showBreadcrumbs"
+          placeholder="Show breadcrumbs inside the top navigation bar"
+        />
       </div>
       <div class="row">
         <button class="column" id="submit" type="button" (click)="showJDiscUI()">Show JDisc UI</button>
@@ -144,18 +157,31 @@ export class AppComponent {
   }
 
   integration!: JdiscIntegrationComponent;
-  embed: string = 'true';
-  showLeftNav = false;
+
+  /**
+   * Represents the embed status which indicates whether certain content or functionality
+   * should be embedded or not.
+   *
+   * Possible values:
+   *  - 'true': Indicates that embedding is enabled.
+   *  - 'false': Indicates that embedding is disabled.
+   *  - partnerId
+   *  - undefined: Default value, indicating the embed status is not explicitly defined.
+   */
+  embed: 'true' | 'false' | undefined = 'true';
+  showLeftNav: 'true' | 'false' | undefined = undefined;
   showBreadcrumbs = false;
   showTopNav: 'always' | 'smart' | 'never' = 'smart';
   shopTopNavOptions = ['always', 'smart', 'never'];
 
   get embedUrl(): string {
     const queryParams = {
-      showLeftNav: this.showLeftNav,
       showTopNav: this.showTopNav,
       showBreadcrumbs: this.showBreadcrumbs,
     };
+    if (this.showLeftNav) {
+      Object.assign(queryParams, { showLeftNav: this.showLeftNav });
+    }
     if (this.embed) {
       Object.assign(queryParams, { embed: this.embed });
     }
