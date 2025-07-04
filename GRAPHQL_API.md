@@ -6,7 +6,7 @@ Tip: Use the integrated in our WebUI GraphiQL tool to easily execute queries and
 
 ## 1. Get the list of all discovered device IDs.
 
-```json
+```
 query allDevicesIds {
   devices {
     findAll {
@@ -20,7 +20,7 @@ query allDevicesIds {
 ## 2. Get device information.
 Here an example query to fetch device information for a list of device IDs. You can modify the query to fetch the needed attributes for your specific use case.
 
-```json
+```
 query deviceDetailsByIDs {
   devices {
     findByIds(ids: [DEVICEID1, DEVICEID2 ...]) {
@@ -203,7 +203,7 @@ query deviceDetailsByIDs {
 ## 2. Get user information.
 Here an example query to fetch user information You can modify the query to fetch the needed attributes for your specific use case.
 
-```json
+```
 query userDetails {
   users {
     findAll {
