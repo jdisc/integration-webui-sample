@@ -1,8 +1,10 @@
 # GraphQL API
 
-## Using the GraphQL API, it is possible to extract JDisc Discovery Data. We provide below some example queries to perform this task.
+Using the GraphQL API, it is possible to extract JDisc Discovery Data. We provide below some example queries to perform this task.
 
-### 1. Get the list of all discovered device IDs.
+Tip: Use the integrated in our WebUI GraphiQL tool to easily execute queries and explore our API documentation.
+
+## 1. Get the list of all discovered device IDs.
 
 ```json
 query allDevicesIds {
@@ -15,8 +17,8 @@ query allDevicesIds {
 ```
 
 
-### 2. Get device information.
-Here an example query to fetch information for a list of device IDs. You can modify the query to fetch the needed attributes for your specific use case.
+## 2. Get device information.
+Here an example query to fetch device information for a list of device IDs. You can modify the query to fetch the needed attributes for your specific use case.
 
 ```json
 query deviceDetailsByIDs {
@@ -198,3 +200,43 @@ query deviceDetailsByIDs {
 
 ```
 
+## 2. Get user information.
+Here an example query to fetch user information You can modify the query to fetch the needed attributes for your specific use case.
+
+```json
+query userDetails {
+  users {
+    findAll {
+      id
+      name
+      surname
+      givenName
+      distinguishedName
+      canonicalName
+      status
+      modificationTime
+      lastLogonTime
+      cloudType
+      directory {
+        id
+        canonicalName
+        name
+        netBiosName
+        distinguishedName
+        guid
+        type
+      }
+      dnsDomain {
+        id
+        uniqueId
+        canonicalName
+        name
+        netBiosName
+        distinguishedName
+        guid
+        type
+      }
+    }
+  }
+}
+```
