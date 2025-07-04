@@ -200,7 +200,7 @@ query deviceDetailsByIDs {
 
 ```
 
-## 2. Get user information.
+## 3. Get user information.
 Here an example query to fetch user information You can modify the query to fetch the needed attributes for your specific use case.
 
 ```
